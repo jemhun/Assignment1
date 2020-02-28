@@ -4,6 +4,7 @@ class TaylorA1TCPClient {
 
     public static void main(String argv[]) throws Exception
     {
+        System.out.println("test");
         String sentence;
         String modifiedSentence;
 
