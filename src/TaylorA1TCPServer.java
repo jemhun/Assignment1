@@ -5,10 +5,9 @@ class TaylorA1TCPServer {
 
     public static void main(String argv[]) throws Exception
     {
-        String clientSentence;
-        String capitalizedSentence;
+        String req;
 
-        ServerSocket welcomeSocket = new ServerSocket(6789);
+        ServerSocket welcomeSocket = new ServerSocket(20120);
 
         while(true) {
 
@@ -20,11 +19,17 @@ class TaylorA1TCPServer {
             DataOutputStream  outToClient =
                     new DataOutputStream(connectionSocket.getOutputStream());
 
-            clientSentence = inFromClient.readLine();
 
-            capitalizedSentence = clientSentence.toUpperCase() + '\n';
+            // Sends the message connected to Client when received request
+            req = inFromClient.readLine();
+            if(req.equals("request"))
+                outToClient.writeBytes("connected" + '\n');
 
-            outToClient.writeBytes(capitalizedSentence);
+
+
+
+
+
         }
     }
 }
