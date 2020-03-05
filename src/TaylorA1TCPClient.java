@@ -36,8 +36,11 @@ class TaylorA1TCPClient {
         String obj = scan.nextLine();
         URL inFromUser = new URL("https://" + obj);
 
+        // Starts timer
+        long t1 = System.currentTimeMillis();
+
         // Prints the IP address of the web server
-        InetAddress ip = InetAddress.getByName(new URL(obj).getHost());
+        InetAddress ip = InetAddress.getByName((inFromUser).getHost());
         System.out.println("Public IP Address of: " + ip);
 
         // Prints each line of page text received form the web server
@@ -49,12 +52,23 @@ class TaylorA1TCPClient {
         while ((inputLine = in.readLine()) != null)
             System.out.println(inputLine);
 
-        // TO-DO: CALCULATE 'T' TO SEND TO THE SERVER
+        // Ends timer
+        long t2 = System.currentTimeMillis();
+
+        // Calculates the value of T(elapsed) = t2 - t1
+        long elapsed = t2 - t1;
+        System.out.println("delay= " + elapsed);
+
+        // Sends the web server's IP address to the Server
+        outToServer.writeBytes(ip.toString() + '\n');
+
+        // Sends the time elapsed to the Server
+        outToServer.writeBytes(Long.toString(elapsed) + '\n');
 
         // Prints out the message done
         System.out.println("done");
 
+        // Closes the connection
         clientSocket.close();
-
     }
 }
